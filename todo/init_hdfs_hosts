@@ -9,5 +9,5 @@
         group: HDFS
         hdfs_namenode: hdfs-namenode-1
         hadoop_pkg: 'http://mirrors.ustc.edu.cn/apache/hadoop/core/hadoop-3.3.0/hadoop-3.3.0.tar.gz'
-        rack_info_list: '/data/Performance-Test/rackinfo.list'
+        rack_info_list: '/data/Playbook-Performance-Test/rackinfo.list'
         

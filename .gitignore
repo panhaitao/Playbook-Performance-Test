@@ -3,3 +3,4 @@ roles/wrk/files/*
 roles/usmc/files/*
 inventory/ucloud.ini
 example/HDFS/*
+tmp/*
