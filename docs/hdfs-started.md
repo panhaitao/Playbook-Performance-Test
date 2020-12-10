@@ -2,14 +2,14 @@
 
 ```
 ssh root@hdfs-namenode-1 
-ssh-keygen
-ssh root@hdfs-datanode-1 
-ssh root@hdfs-datanode-1 
-ssh root@hdfs-datanode-1 
+ssh-keygen 
 yum install ansible git python2 -y
 ln -sv /usr/bin/python2 /usr/bin/python
 git clone  https://github.com/panhaitao/Playbook-Performance-Test.git
 python3 scripts/create_uhost.py --config example/HDFS/hdfs-namenode-cfg.yaml && python3 scripts/create_uhost.py --config example/HDFS/hdfs-datanode-cfg.yaml
+ssh root@hdfs-datanode-1; exit 
+ssh root@hdfs-datanode-1; exit 
+ssh root@hdfs-datanode-1; exit
 ```
 
 # 部署集群
