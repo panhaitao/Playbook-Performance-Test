@@ -1,0 +1,23 @@
+auth:
+  public_key: 'your_ucloud_public_key'
+  private_key: 'your_ucloud_private_key'
+rz:
+  region: cn-bj2
+  zone: cn-bj2-03
+  project_id: org-5wakzh
+  securitygroupid: firewall-4fntbzvk
+os:
+  host_name: node 
+  password: your_password
+  imageid: uimage-0d512ief
+  type: N
+  cpu: 2
+  mem: 2048
+  disk_type: CLOUD_SSD
+  disk_size: 20
+  net_capability: Normal
+tag: web
+inventory:
+  name: inventory 
+  maxhosts: 2
+  group: bench

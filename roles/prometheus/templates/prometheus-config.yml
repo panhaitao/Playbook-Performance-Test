@@ -1,0 +1,10 @@
+global:
+  scrape_interval:     1s
+  evaluation_interval: 1s
+
+scrape_configs:
+{% for g_item in groups %}
+  - job_name: {{ g_item }}
+    static_configs:
+      - targets: [{%- for item in groups[g_item] -%} '{{ hostvars[item]['ansible_host'] }}:9100'{% if not loop.last %},{% endif %} {%- endfor -%}]
+{% endfor %}

@@ -1,0 +1,9 @@
+- name: clean old file
+  shell: "rm -f /usr/bin/wrk"
+  when: inventory_hostname in groups[group] 
+- name: copy wrk
+  copy: src=files/wrk      dest=/usr/bin owner=root group=root mode=0777
+  when: inventory_hostname in groups[group] 
+- name: sync post.lua
+  template: src=templates/post.lua   dest=/home/post.lua owner=root group=root mode=0777
+  when: inventory_hostname in groups[group] 

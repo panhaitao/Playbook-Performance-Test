@@ -1,0 +1,9 @@
+[all]
+web1                ansible_ssh_host=10.10.33.1
+web2                ansible_ssh_host=10.10.33.2
+web3                ansible_ssh_host=10.10.33.3
+web4                ansible_ssh_host=10.10.33.4
+[all:vars]
+ansible_connection=ssh
+ansible_ssh_user=root
+ansible_ssh_pass="xxxxxxxxx"

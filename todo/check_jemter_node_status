@@ -1,0 +1,1 @@
+ansible -i hosts/http_load all -m shell -a "netstat -nat | grep 1099 " | grep rc=1 | awk '{print $1}' | tr '\n' ','

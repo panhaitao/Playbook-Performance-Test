@@ -1,0 +1,7 @@
+apiVersion: 1
+
+datasources:
+  - name: PrometheusDB
+    type: prometheus
+    access: Browser
+    url: http://localhost:9090

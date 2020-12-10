@@ -1,0 +1,18 @@
+- name: Install Uwsgi Packages
+  shell: "yum install epel-release -y && yum makecache && yum install nginx python2-pip -y ;pip install flask uwsgi"
+  when: inventory_hostname in groups[group] 
+- name: Create Uwsgi App Dir
+  shell: "mkdir -pv /usr/share/nginx/api/"
+  when: inventory_hostname in groups[group] 
+- name: Prep Flask App 
+  template: src=templates/restfulapi.py   dest=/usr/share/nginx/api/restfulapi.py owner=root group=root mode=0755
+  when: inventory_hostname in groups[group] 
+- name: Prep Uwsgi Config 
+  template: src=templates/uwsgiconfig.ini   dest=/usr/share/nginx/api/uwsgiconfig.ini owner=root group=root mode=0644
+  when: inventory_hostname in groups[group] 
+- name: Prep Nginx Config 
+  template: src=templates/nginx.conf   dest=/etc/nginx/nginx.conf owner=root group=root mode=0644
+  when: inventory_hostname in groups[group] 
+- name: Run Uwsgi App
+  shell: "uwsgi --ini /usr/share/nginx/api/uwsgiconfig.ini && systemctl restart nginx"
+  when: inventory_hostname in groups[group] 

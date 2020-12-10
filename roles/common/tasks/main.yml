@@ -1,0 +1,8 @@
+- name: Set etc hosts 
+  import_tasks: set_etc_hosts.yml
+
+- name: Set etc hostname
+  import_tasks: set_etc_hostname.yml
+
+- name: Sync ssh pub key 
+  import_tasks: add-ssh-key.yaml

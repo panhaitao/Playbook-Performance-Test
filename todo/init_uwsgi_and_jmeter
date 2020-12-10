@@ -1,0 +1,22 @@
+- name: set all jmeter bench nodes
+  hosts: web
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: jmeter
+      vars:
+        group: web
+        jvm_Xms: "2G"
+        jvm_Xmx: "2G"
+        jvm_MaxMetaspaceSize: "256m"
+        timeout: "6000"
+- name: set all uwsgi nodes
+  hosts: nginx
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: uwsgi
+      vars:
+        group: nginx

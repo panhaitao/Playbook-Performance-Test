@@ -1,0 +1,2 @@
+- name: update /etc/hosts
+  template: src=templates/hosts dest=/etc/hosts owner=root group=root mode=0644 force=yes unsafe_writes=yes

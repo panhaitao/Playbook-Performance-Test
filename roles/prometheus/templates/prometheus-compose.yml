@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+ prometheus:
+   image: {{ prometheus_image }} 
+   container_name: prometheus
+   hostname: prometheus
+   network_mode: host
+   restart: always
+   volumes:
+     - /data/prometheus-config.yml:/etc/prometheus/prometheus.yml
+   command:
+     - '--config.file=/etc/prometheus/prometheus.yml'
+     - "--storage.tsdb.path=/prometheus"
+     - "--storage.tsdb.retention=24h"
+   ports:
+     - "9090:9090"
+   environment:
+     - PROMETHEUS_ADMIN_USER=admin
+     - PROMETHEUS_ADMIN_PASSWORD=admin

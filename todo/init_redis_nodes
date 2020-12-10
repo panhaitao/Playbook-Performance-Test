@@ -1,0 +1,9 @@
+- name: init redis bench nodes
+  hosts: all
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: common
+      vars:
+        host_group: bench

@@ -1,0 +1,12 @@
+- name: clean old file
+  shell: "rm -f /usmc_agent.sh /usmc_client_linux_x86_64"
+  when: inventory_hostname in groups[group]
+- name: copy usmc agent script
+  template: src=templates/usmc_agent.sh dest=/usmc_agent.sh owner=root group=root mode=0777
+  when: inventory_hostname in groups[group]
+- name: copy usmc agent app
+  copy: src=files/usmc_client_linux_x86_64 dest=/usmc_client_linux_x86_64 owner=root group=root mode=0777
+  when: inventory_hostname in groups[group]
+- name: run usmc agent
+  shell: "/usmc_agent.sh"
+  when: inventory_hostname in groups[group]

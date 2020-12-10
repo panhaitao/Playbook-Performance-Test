@@ -1,0 +1,15 @@
+- name: create user prometheus
+  shell: "useradd prometheus -s /sbin/nologin"
+  when: inventory_hostname in groups[group]
+- name: clean old file
+  shell: "rm -f /usr/bin/node_exporter"
+  when: inventory_hostname in groups[group]
+- name: copy node_exporter binary 
+  copy: src=files/node_exporter      dest=/usr/bin/ owner=prometheus group=prometheus mode=0755
+  when: inventory_hostname in groups[group]
+- name: create node-exporter.service
+  template: src=templates/node-exporter.service   dest=/etc/systemd/system/node-exporter.service owner=root group=root mode=0644
+  when: inventory_hostname in groups[group] 
+- name: init node_exporter service
+  script: files/init_node_exporter.sh
+  when: inventory_hostname in groups[group]

@@ -1,0 +1,5 @@
+hdfs-namenode-1 /switch1/rack1
+hdfs-datanode-1 /switch1/rack1
+hdfs-datanode-2 /switch2/rack2
+hdfs-datanode-3 /switch2/rack2
+

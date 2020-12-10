@@ -1,0 +1,9 @@
+- name: set all ab bench nodes
+  hosts: all
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: ab
+      vars:
+        group: bench

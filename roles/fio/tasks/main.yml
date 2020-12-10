@@ -1,0 +1,14 @@
+- name: update Repo Cache
+  command: "yum makecache"
+  when: inventory_hostname in groups[group] 
+- name: Install Packages
+  command: "yum install {{ item }} -y"
+  with_items:
+    - fio
+  when: inventory_hostname in groups[group] 
+- name: Gen iobench-iops script
+  template: src=templates/fio.conf   dest=/tmp/fio.conf owner=root group=root mode=0777
+  when: inventory_hostname in groups[group] 
+- name: Run iobench and Generate Plot
+  shell: 'nohup fio /tmp/fio.conf   &> iobench-{{ task_name }}.result &'
+  when: inventory_hostname in groups[group] 

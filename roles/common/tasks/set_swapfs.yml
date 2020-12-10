@@ -1,0 +1,2 @@
+- name: disable swapfs 
+  script: "files/swapfs_disable.sh"

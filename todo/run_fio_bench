@@ -1,0 +1,16 @@
+- name: set all io bench nodes
+  hosts: all
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: fio
+      vars:
+        group: iobench
+        task_name: 'iops'
+        filename: '/dev/vdb'
+        filesize: '500g'
+        iodepth: 32
+        bs: '4k'
+        numjobs: '1'
+        runtime: 300 

@@ -1,0 +1,10 @@
+- name: set usmc agent
+  hosts: all
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: usmc
+      vars:
+        group: bench
+        usmc_id: usmc-4yyukn2r 

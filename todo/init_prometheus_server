@@ -1,0 +1,12 @@
+- name: init prometheus server
+  hosts: all
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: prometheus
+      vars:
+        group: monitor
+        ucloud_user: 'xxxx'
+        ucloud_password: 'xxxx'
+        prometheus_image: uhub.service.ucloud.cn/k8srepo/prometheus:v2.22.0

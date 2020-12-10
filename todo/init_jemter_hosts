@@ -1,0 +1,13 @@
+- name: set all jmeter bench nodes
+  hosts: all
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: jmeter
+      vars:
+        group: bench
+        jvm_Xms: "1G"
+        jvm_Xmx: "1G"
+        jvm_MaxMetaspaceSize: "256m"
+        timeout: "6000"

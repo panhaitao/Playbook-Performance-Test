@@ -1,0 +1,9 @@
+- name: set all uwsgi nodes
+  hosts: all
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: uwsgi
+      vars:
+        group: bench

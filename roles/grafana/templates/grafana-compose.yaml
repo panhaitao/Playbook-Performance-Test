@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+ grafana:
+   image: {{ grafana_image }} 
+   container_name: grafana
+   network_mode: host
+   volumes:
+    - /data/grafana/:/var/lib/grafana/
+    - /data/dashboards:/etc/grafana/provisioning/dashboards/
+    - /data/datasources/:/etc/grafana/provisioning/datasources/
+   ports:
+     - "3000:3000"
+   environment:
+     - GF_SECURITY_ADMIN_USER=admin
+     - GF_SECURITY_ADMIN_PASSWORD=admin
+   user: "0"
+

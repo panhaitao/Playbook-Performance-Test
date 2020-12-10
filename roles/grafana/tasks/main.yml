@@ -1,0 +1,27 @@
+- name: create dir
+  shell: "mkdir -pv {{ item }}"
+  with_items:
+    - /data/grafana/
+    - /data/dashboards/
+    - /data/datasources/
+- name: login Uhub repo
+  shell: "docker login -u {{ ucloud_user }} -p '{{ ucloud_password  }}' uhub.service.ucloud.cn"
+  when: inventory_hostname in groups[group] 
+- name: pull images
+  shell: "docker pull {{ grafana_image }}"
+  when: inventory_hostname in groups[group]
+- name: pull images
+  shell: "docker pull {{ grafana_image }}"
+  when: inventory_hostname in groups[group]
+- name: sync grafana datasources yaml
+  template: src=templates/grafana-datasources.yaml   dest=/data/datasources/ owner=root group=root mode=0644
+  when: inventory_hostname in groups[group] 
+- name: sync grafana dashboards yaml
+  template: src=templates/grafana-dashboards.yaml   dest=/data/dashboards/ owner=root group=root mode=0644
+  when: inventory_hostname in groups[group] 
+- name: sync grafana compose yaml
+  template: src=templates/grafana-compose.yaml   dest=/data/ owner=root group=root mode=0644
+  when: inventory_hostname in groups[group] 
+- name: run grafana 
+  shell: 'docker-compose -f /data/grafana-compose.yaml up -d'
+  when: inventory_hostname in groups[group] 

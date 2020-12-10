@@ -1,0 +1,45 @@
+- name: update Repo Cache
+  command: "yum makecache"
+- name: Install Packages
+  command: "yum install {{ item }} -y"
+  with_items:
+    - java-11-openjdk
+- name: Get hadoop Packages
+  shell: "rm -rvf hadoop*.tar.gz && wget {{ hadoop_pkg }}"
+- name: Extra hadoop Packages
+  shell: "rm -rvf /data/hadoop* && tar -xpf hadoop-3.3.0.tar.gz -C /data/"
+- name: create HDFS USER 
+  shell: "useradd hdfs"
+  ignore_errors: yes
+- name: set hdfs workdir perm
+  shell: "chown -Rv hdfs:root /data/hadoop-3.3.0/ /data/hadoopData/"
+- name: add env config for hadoop
+  template: src=templates/hdfs-env.sh dest=/etc/profile.d/ owner=root group=root mode=0644
+- name: make env config effect
+  shell: "source /etc/profile"
+- name: Create HDFS Data DIR
+  shell: "mkdir -pv  /data/hadoopData/dfs/name && mkdir -pv /data/hadoopData/dfs/data && mkdir -pv /data/hadoopData/tmp/ && mkdir -pv /data/hadoop-3.3.0/logs"
+- name: Set hadoop config core-site.xml
+  template: src=templates/core-site.xml dest=/data/hadoop-3.3.0/etc/hadoop/core-site.xml owner=root group=root mode=0644
+- name: Set hadoop config hdfs-site.xml
+  template: src=templates/hdfs-site.xml dest=/data/hadoop-3.3.0/etc/hadoop/hdfs-site.xml owner=root group=root mode=0644
+
+- name: Set hadoop topology.sh
+  template: src=templates/topology.sh dest=/data/hadoop-3.3.0/share/topology.sh owner=root group=root mode=0755
+
+- name: sync rack_info file
+  copy: src={{ rack_info_list }} dest=/tmp/rack_info 
+
+- name: get rack_info
+  script: files/get_rack_info.sh /tmp/rack_info {{ inventory_hostname }} 
+  register: rack_info_raw
+- name: set rack_info_raw
+  set_fact:
+    rack_info: "{{ rack_info_raw.stdout_lines[0] }}"
+
+- name: Set hadoop topology.data
+  template: src=templates/topology.data dest=/data/hadoop-3.3.0/share/topology.data owner=root group=root mode=0755
+
+- name: Set hadoop workers
+  template: src=templates/workers dest=/data/hadoop-3.3.0/etc/hadoop/workers owner=root group=root mode=0755
+  when: inventory_hostname in hdfs_namenode

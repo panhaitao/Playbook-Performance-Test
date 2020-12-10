@@ -1,0 +1,17 @@
+- name: init grafana server
+  hosts: monitor
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: grafana
+      vars:
+        group: monitor
+        ucloud_user: 'xxxx'
+        ucloud_password: 'xxxxx'
+        enable_metrics: true
+        docker_version: '19.03.9'
+        registry:
+          - myhub.com
+        grafana_image: uhub.service.ucloud.cn/k8srepo/grafana:7.3.0 
+        prometheus_image: uhub.service.ucloud.cn/k8srepo/prometheus:v2.22.0

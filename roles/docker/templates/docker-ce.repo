@@ -1,0 +1,6 @@
+[docker]
+name=docker-ce
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/7/x86_64/stable/
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0

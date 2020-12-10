@@ -1,0 +1,9 @@
+- name: Sync kubebin for all nodes
+  hosts: "{{ group }}"
+  user: root
+  gather_facts: no
+  tasks:
+  - name: clean old repo config
+    shell: "rm -rvf /etc/yum.repos.d/ && mkdir -pv /etc/yum.repos.d/"
+  - name: Gen new repo config
+    template: src=templates/CentOS7-Base.repo dest=/etc/yum.repos.d/CentOS-Base.repo owner=root group=root mode=0644 force=yes unsafe_writes=yes

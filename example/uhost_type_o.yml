@@ -1,0 +1,28 @@
+auth:
+  public_key: ''
+  private_key: ''
+rz:
+  region: cn-bj2
+  zone: cn-bj2-02
+  project_id: org-5wakzh
+  securitygroupid: firewall-4fntbzvk
+os:
+  hostname_pre: k8s
+  password: your_password
+  imageid: uimage-my2noqb5
+  type: O
+  cpu: 2
+  mem: 2048
+  net_capability: Ultra
+disk:
+  - IsBoot: true
+    type: CLOUD_RSSD
+    size: 20
+  - IsBoot: false
+    type: CLOUD_RSSD
+    size: 200
+tag: k8s
+inventory:
+  name: inventory
+  maxhosts: 2
+  group: bench
