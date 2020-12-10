@@ -1,12 +1,12 @@
 # 准备环境
 
 ```
+python3 scripts/create_uhost.py --config example/HDFS/hdfs-namenode-cfg.yaml && python3 scripts/create_uhost.py --config example/HDFS/hdfs-datanode-cfg.yaml
 ssh root@hdfs-namenode-1 
 ssh-keygen 
 yum install ansible git python2 -y
 ln -sv /usr/bin/python2 /usr/bin/python
 git clone  https://github.com/panhaitao/Playbook-Performance-Test.git
-python3 scripts/create_uhost.py --config example/HDFS/hdfs-namenode-cfg.yaml && python3 scripts/create_uhost.py --config example/HDFS/hdfs-datanode-cfg.yaml
 创建 inventory/ucloud.ini 配置
 ansile-playbook todo/init_common
 ssh-copy-id  root@hdfs-namenode-1
