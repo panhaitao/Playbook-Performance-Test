@@ -7,6 +7,7 @@ yum install ansible git python2 -y
 ln -sv /usr/bin/python2 /usr/bin/python
 git clone  https://github.com/panhaitao/Playbook-Performance-Test.git
 python3 scripts/create_uhost.py --config example/HDFS/hdfs-namenode-cfg.yaml && python3 scripts/create_uhost.py --config example/HDFS/hdfs-datanode-cfg.yaml
+ansile-playbook todo/init_common
 ssh root@hdfs-datanode-1; exit 
 ssh root@hdfs-datanode-1; exit 
 ssh root@hdfs-datanode-1; exit
