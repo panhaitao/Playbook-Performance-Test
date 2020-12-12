@@ -7,4 +7,4 @@
         name: zookeeper
       vars:
         group: HDFS-ZK
-        zookeeper_pkg: 'http://mirrors.ustc.edu.cn/apache/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz'
+        zookeeper_pkg: 'http://mirrors.ustc.edu.cn/apache/zookeeper/zookeeper-3.5.8/apache-zookeeper-3.5.8-bin.tar.gz'
