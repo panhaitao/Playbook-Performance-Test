@@ -1,0 +1,10 @@
+- name: set all hdfs nodes
+  hosts: HDFS-ZK
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: hdfs
+      vars:
+        group: HDFS-ZK
+        zookeeper_pkg: 'http://mirrors.ustc.edu.cn/apache/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz'

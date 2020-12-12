@@ -1,0 +1,28 @@
+auth:
+  public_key: 'GKHWNWpOqHy8jhR9Rq6ef3WKpWiFvjc713vhgns0w'
+  private_key: '3r8xqLqDHgA3WvI30khhXzBUSgYho2rQ7H4dN8Srl3FhKfachiDwfXDDjpIu1qRvyg'
+rz:
+  region: cn-bj2
+  zone: cn-bj2-02
+  project_id: org-5wakzh
+  securitygroupid: firewall-4fntbzvk
+os:
+  hostname_pre: hdfs-namenode
+  password: a4h3ljbn
+  imageid: uimage-my2noqb5
+  type: O
+  cpu: 4
+  mem: 4096
+  net_capability: Ultra
+disk:
+  - IsBoot: true
+    type: CLOUD_RSSD
+    size: 20
+  - IsBoot: false
+    type: CLOUD_RSSD
+    size: 100
+tag: HDFS
+inventory:
+  name: inventory
+  maxhosts: 1
+  group: bench
