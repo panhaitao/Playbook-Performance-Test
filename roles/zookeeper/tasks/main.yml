@@ -10,7 +10,9 @@
   shell: "rm -rvf /data/apache-zookeeper-* && tar -xpf apache-zookeeper-3.6.2-bin.tar.gz -C /data/"
 - name: Mkdir zookeeper Data Dir
   shell: "mkdir -pv /data/zookeeperData"
-- name: add config for  zookeeper
-  template: src=templates/zoo.cfg dest= owner=root group=root mode=0644
+- name: Set zk config 
+  template: src=templates/zoo.cfg dest=/data/apache-zookeeper-3.6.2-bin/conf/zoo.cfg owner=root group=root mode=0644
+- name: Set myid config for zookeeper
+  template: src=templates/myid dest=//data/zookeeperData/myid owner=root group=root mode=0644
 - name: Start zookeeper Server
-  shell: '/data/zkServer.sh start'
+  shell: '/data/apache-zookeeper-3.6.2-bin/bin/zkServer.sh  start'

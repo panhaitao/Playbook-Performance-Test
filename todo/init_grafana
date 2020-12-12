@@ -1,14 +1,32 @@
+- name: Set HDFS node with node_exporter
+  hosts: HDFS
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: node_exporter
+      vars:
+        group: HDFS
+- name: Set HDFS node with node_exporter
+  hosts: Monitor
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: node_exporter
+      vars:
+        group: Monitor
 - name: init grafana server
-  hosts: monitor
+  hosts: Monitor
   user: root
   gather_facts: yes
   tasks:
     - include_role:
         name: grafana
       vars:
-        group: monitor
-        ucloud_user: 'xxxx'
-        ucloud_password: 'xxxxx'
+        group: Monitor
+        ucloud_user: 'haitao.pan@ucloud.cn'
+        ucloud_password: 'L@bs&d1250'
         enable_metrics: true
         docker_version: '19.03.9'
         registry:

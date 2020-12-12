@@ -4,7 +4,7 @@
   gather_facts: yes
   tasks:
     - include_role:
-        name: hdfs
+        name: zookeeper
       vars:
         group: HDFS-ZK
         zookeeper_pkg: 'http://mirrors.ustc.edu.cn/apache/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz'
