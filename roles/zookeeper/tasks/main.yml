@@ -3,7 +3,8 @@
 - name: Install Packages
   command: "yum install {{ item }} -y"
   with_items:
-    - java-11-openjdk
+    - java-1.8.0-openjdk      
+    - java-1.8.0-openjdk-devel
 - name: Get hadoop Packages
   shell: "rm -rvf apache-zookeeper-*-bin.tar.gz  && wget {{ zookeeper_pkg }}"
 - name: Extra hadoop Packages
@@ -14,5 +15,8 @@
   template: src=templates/zoo.cfg dest=/data/apache-zookeeper-3.5.8-bin/conf/zoo.cfg owner=root group=root mode=0644
 - name: Set myid config for zookeeper
   template: src=templates/myid dest=//data/zookeeperData/myid owner=root group=root mode=0644
+- name: Kill all java proc
+  shell: "killall java"
+  ignore_errors: yes 
 - name: Run zookeeper
   script: files/runserver.sh
