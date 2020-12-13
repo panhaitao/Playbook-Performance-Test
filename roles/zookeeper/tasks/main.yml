@@ -3,6 +3,7 @@
 - name: Install Packages
   command: "yum install {{ item }} -y"
   with_items:
+    - psmisc
     - java-1.8.0-openjdk      
     - java-1.8.0-openjdk-devel
 - name: Get hadoop Packages

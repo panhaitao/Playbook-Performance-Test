@@ -1,4 +1,4 @@
-- name: set all hdfs nodes
+- name: set all zookeeper nodes
   hosts: HDFS-ZK
   user: root
   gather_facts: yes
