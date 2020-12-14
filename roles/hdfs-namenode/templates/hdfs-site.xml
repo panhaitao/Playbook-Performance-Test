@@ -11,9 +11,6 @@
     <value>nn1,nn2</value>
   </property>
   <property>
-    <name>dfs.webhdfs.enabled</name>
-    <value>true</value>
-  <property>
     <name>dfs.namenode.rpc-address.mycluster.nn1</name>
     <value>hdfs-namenode-1:8020</value>
   </property>
@@ -21,13 +18,25 @@
     <name>dfs.namenode.rpc-address.mycluster.nn2</name>
     <value>hdfs-namenode-2:8020</value>
   </property>
+  <property>
     <name>dfs.namenode.http-address.mycluster.nn1</name>
     <value>hdfs-namenode-1:9870</value>
   </property>
   <property>
     <name>dfs.namenode.http-address.mycluster.nn2</name>
-    <value>hdfs-namenode-1:9870</value>
+    <value>hdfs-namenode-2:9870</value>
   </property>
+  <property>
+	    <name>dfs.namenode.shared.edits.dir</name>
+	      <value>qjournal://hdfs-journalnode-1:8485;hdfs-journalnode-2:8485;hdfs-journalnode-3:8485/mycluster</value>
+      </property>
+
+
+  <property>
+    <name>dfs.ha.automatic-failover.enabled</name>
+    <value>true</value>
+  </property>
+
   <property>
     <name>dfs.client.failover.proxy.provider.mycluster</name>
     <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
@@ -42,10 +51,11 @@
   </property>
 
   <property>
-    <name>dfs.datanode.data.dir</name>
-    <value>/data/hadoopData/dfs/data</value>
+    <name>dfs.namenode.name.dir</name>
+    <value>/data/hadoopData/dfs/name</value>
   </property>
- 
+
+
  <property>
    <name>dfs.replication</name>
    <value>3</value>

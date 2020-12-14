@@ -17,9 +17,10 @@
     <value>4320</value>
 </property>
 
+
 <property>
-   <name>topology.script.file.name</name>
-   <value>/data/hadoop-3.3.0/share/topology.sh</value>
+  <name>ha.zookeeper.quorum</name>
+  <value>hdfs-zookeeper-1,hdfs-zookeeper-2,hdfs-zookeeper-3</value>
 </property>
 
 </configuration>
