@@ -17,4 +17,9 @@
     <value>4320</value>
 </property>
 
+<property>
+    <name>topology.script.file.name</name>
+    <value>/data/hadoop-3.3.0/share/topology.sh</value>
+</property>
+
 </configuration>
