@@ -1,5 +1,3 @@
-{% for item in groups[datanode] %}
-{% if item != hdfs_namenode %}
+{% for item in groups[datanode_group] %}
 {{ item }}
-{% endif %}
 {% endfor %}

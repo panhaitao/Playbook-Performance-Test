@@ -4,7 +4,8 @@
   gather_facts: yes
   tasks:
     - include_role:
-        name: hdfs
+        name: hdfs-namenode
       vars:
         group: HDFS-NN
+        datanode_group: HDFS-DN
         hadoop_pkg: 'http://mirrors.ustc.edu.cn/apache/hadoop/core/hadoop-3.3.0/hadoop-3.3.0.tar.gz'

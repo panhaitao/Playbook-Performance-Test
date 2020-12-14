@@ -11,6 +11,9 @@
     <value>nn1,nn2</value>
   </property>
   <property>
+    <name>dfs.webhdfs.enabled</name>
+    <value>true</value>
+  <property>
     <name>dfs.namenode.rpc-address.mycluster.nn1</name>
     <value>hdfs-namenode-1:8020</value>
   </property>
