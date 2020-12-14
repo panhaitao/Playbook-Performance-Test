@@ -1,0 +1,10 @@
+- name: add env config for hadoop
+  template: src=templates/hdfs-env.sh dest=/etc/profile.d/ owner=root group=root mode=0644
+- name: make env config effect
+  shell: "source /etc/profile"
+- name: Create HDFS Data DIR
+  shell: "mkdir -pv  /data/hadoopData/dfs/name && mkdir -pv /data/hadoopData/tmp/ && mkdir -pv /data/hadoop-3.3.0/logs"
+- name: Set hadoop config core-site.xml
+  template: src=templates/core-site.xml dest=/data/hadoop-3.3.0/etc/hadoop/core-site.xml owner=root group=root mode=0644
+- name: Set hadoop config hdfs-site.xml
+  template: src=templates/hdfs-site.xml dest=/data/hadoop-3.3.0/etc/hadoop/hdfs-site.xml owner=root group=root mode=0644

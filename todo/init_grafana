@@ -1,21 +1,12 @@
 - name: Set HDFS node with node_exporter
-  hosts: HDFS
+  hosts: HDFS-ZK
   user: root
   gather_facts: yes
   tasks:
     - include_role:
         name: node_exporter
       vars:
-        group: HDFS
-- name: Set HDFS node with node_exporter
-  hosts: Monitor
-  user: root
-  gather_facts: yes
-  tasks:
-    - include_role:
-        name: node_exporter
-      vars:
-        group: Monitor
+        group: HDFS-ZK
 - name: init grafana server
   hosts: Monitor
   user: root

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+
+  <property>
+    <name>dfs.nameservices</name>
+    <value>mycluster</value>
+  </property>
+  <property>
+    <name>dfs.ha.namenodes.mycluster</name>
+    <value>nn1,nn2</value>
+  </property>
+  <property>
+    <name>dfs.namenode.rpc-address.mycluster.nn1</name>
+    <value>hdfs-namenode-1:8020</value>
+  </property>
+  <property>
+    <name>dfs.namenode.rpc-address.mycluster.nn2</name>
+    <value>hdfs-namenode-2:8020</value>
+  </property>
+    <name>dfs.namenode.http-address.mycluster.nn1</name>
+    <value>hdfs-namenode-1:9870</value>
+  </property>
+  <property>
+    <name>dfs.namenode.http-address.mycluster.nn2</name>
+    <value>hdfs-namenode-1:9870</value>
+  </property>
+  <property>
+    <name>dfs.client.failover.proxy.provider.mycluster</name>
+    <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+  </property>
+  <property>
+    <name>dfs.ha.fencing.methods</name>
+    <value>sshfence</value>
+  </property>
+  <property>
+    <name>dfs.ha.fencing.ssh.private-key-files</name>
+    <value>/root/.ssh/id_rsa</value>
+  </property>
+
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>/data/hadoopData/dfs/data</value>
+  </property>
+ 
+ <property>
+   <name>dfs.replication</name>
+   <value>3</value>
+ </property>
+ 
+ <property>
+   <name>dfs.permissions.superusergroup</name>
+   <value>staff</value>
+ </property>
+ 
+ <property>
+   <name>dfs.permissions.enabled</name>
+   <value>false</value>
+ </property>
+</configuration>

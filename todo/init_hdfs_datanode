@@ -1,0 +1,13 @@
+- name: set all hdfs nodes
+  hosts: HDFS
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: hdfs
+      vars:
+        group: HDFS
+        hdfs_namen: hdfs-namenode-1
+        hadoop_pkg: 'http://mirrors.ustc.edu.cn/apache/hadoop/core/hadoop-3.3.0/hadoop-3.3.0.tar.gz'
+        rack_info_list: '/data/Playbook-Performance-Test/rackinfo.list'
+        

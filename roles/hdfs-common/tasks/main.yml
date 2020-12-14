@@ -1,0 +1,23 @@
+- name: update Repo Cache
+  command: "yum makecache"
+- name: Install Packages
+  command: "yum install {{ item }} -y"
+  with_items:
+    - java-11-openjdk
+    - java-11-openjdk-devel
+- name: Get hadoop Packages
+  shell: "rm -rvf hadoop*.tar.gz && wget {{ hadoop_pkg }}"
+- name: Extra hadoop Packages
+  shell: "rm -rvf /data/hadoop* && tar -xpf hadoop-3.3.0.tar.gz -C /data/"
+  #- name: create HDFS USER 
+  #  shell: "useradd hdfs"
+  #ignore_errors: yes
+  #- name: set hdfs workdir perm
+  #shell: "chown -Rv hdfs:root /data/hadoop-3.3.0/ /data/hadoopData/"
+  #
+- name: add env config for hadoop
+  template: src=templates/hdfs-env.sh dest=/etc/profile.d/ owner=root group=root mode=0644
+- name: make env config effect
+  shell: "source /etc/profile"
+- name: Create HDFS Data DIR
+  shell: "mkdir -pv /data/hadoopData/journal && mkdir -pv /data/hadoop-3.3.0/logs" 
