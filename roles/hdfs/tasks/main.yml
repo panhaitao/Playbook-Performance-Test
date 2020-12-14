@@ -8,7 +8,7 @@
 - name: Get hadoop Packages
   shell: "rm -rvf hadoop*.tar.gz && wget {{ hadoop_pkg }}"
 - name: Extra hadoop Packages
-  shell: "rm -rvf /data/hadoop* && tar -xpf hadoop-3.3.0.tar.gz -C /data/"
+  shell: "rm -rvf /data/hadoop-* && tar -xpf hadoop-3.3.0.tar.gz -C /data/"
   #- name: create HDFS USER 
   #  shell: "useradd hdfs"
   #ignore_errors: yes
