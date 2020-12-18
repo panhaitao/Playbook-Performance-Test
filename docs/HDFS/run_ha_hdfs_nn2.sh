@@ -1,4 +1,4 @@
-root@hdfs-namenode-2 'killall java'
-root@hdfs-namenode-2 'hdfs namenode -bootstrapstandby'
-root@hdfs-namenode-2 'hdfs --daemon start namenode'
-root@hdfs-namenode-2 'hdfs --daemon start zkfc'
+ssh root@hdfs-namenode-2 'killall java'
+ssh root@hdfs-namenode-2 'hdfs namenode -bootstrapstandby'
+ssh root@hdfs-namenode-2 'hdfs --daemon start namenode'
+ssh root@hdfs-namenode-2 'hdfs --daemon start zkfc'

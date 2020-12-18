@@ -5,13 +5,13 @@
   with_items:
     - java-11-openjdk
     - java-11-openjdk-devel
+    - psmisc
 - name: Get hadoop Packages
   shell: "rm -rvf hadoop*.tar.gz && wget {{ hadoop_pkg }}"
 - name: Extra hadoop Packages
   shell: "rm -rvf /data/hadoop-* && tar -xpf hadoop-3.3.0.tar.gz -C /data/"
-  #- name: create HDFS USER 
-  #  shell: "useradd hdfs"
-  #ignore_errors: yes
-  #- name: set hdfs workdir perm
-  #shell: "chown -Rv hdfs:root /data/hadoop-3.3.0/ /data/hadoopData/"
-  #
+- name: create HDFS USER 
+  shell: "useradd hdfs"
+  ignore_errors: yes
+- name: set hdfs workdir perm
+  shell: "chown -Rv hdfs:root /data/hadoop-3.3.0/ /data/hadoopData/"
