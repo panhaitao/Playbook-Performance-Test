@@ -38,7 +38,7 @@ def create_hosts(hostname, cfg):
     try:
         resp = client.uhost().create_uhost_instance({
             "MachineType": cfg['os']['type'],
-            "ChargeType": "Dynamic", 
+            "ChargeType": cfg['os']['charge_type'], 
             "SecurityGroupId": cfg['rz']['securitygroupid'],
             "Zone": cfg['rz']['zone'],
             "ImageId": cfg['os']['imageid'],
