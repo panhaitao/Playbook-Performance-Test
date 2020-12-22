@@ -1,0 +1,9 @@
+- name: Init KDC Master Server 
+  hosts: HDFS-Ranger
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: mariadb
+      vars:
+        group: HDFS-Ranger
