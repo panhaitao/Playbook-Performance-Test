@@ -1,0 +1,9 @@
+- name: Init KDC Master Server 
+  hosts: HDFS-KDC
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: kdc-master
+      vars:
+        group: HDFS-KDC
