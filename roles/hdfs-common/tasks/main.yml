@@ -14,4 +14,4 @@
   shell: "useradd hdfs"
   ignore_errors: yes
 - name: set hdfs workdir perm
-  shell: "chown -Rv hdfs:root /data/hadoop-3.3.0/ /data/hadoopData/"
+  shell: "chown -Rv hdfs:hdfs /data/hadoop-3.3.0/ /data/hadoopData/"
