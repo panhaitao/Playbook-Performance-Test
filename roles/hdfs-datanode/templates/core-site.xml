@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
-
+{%- for key, value in core_site.items() %}
   <property>
-    <name>fs.defaultFS</name>
-    <value>hdfs://mycluster</value>
+    <name>{{ key }}</name>
+    <value>{{ value }}</value>
   </property>
-
-<property>
-  <name>hadoop.tmp.dir</name>
-  <value>/data/hadoopData/tmp</value>
-</property>
-
-<property>
-    <name>fs.trash.interval</name>
-    <value>4320</value>
-</property>
-
-<property>
-    <name>topology.script.file.name</name>
-    <value>/data/hadoop-3.3.0/share/topology.sh</value>
-</property>
-
+{% endfor -%}
 </configuration>
