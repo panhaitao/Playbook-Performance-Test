@@ -6,7 +6,34 @@
   shell: "mkdir -pv  /data/hadoopData/tmp/dfs/name ; mkdir -pv /data/hadoopData/tmp/ ; mkdir -pv /data/hadoop-3.3.0/logs"
 - name: set hdfs workdir perm
   shell: "chown -Rv hdfs:hdfs /data/hadoop-3.3.0/ /data/hadoopData/"
+
+- name: Set hadoop namenode start script
+  template: src=templates/hdfs-namenode-start.run dest=/usr/lib/systemd/system/hdfs-namenode-start.run owner=hdfs group=hdfs mode=0755
+- name: Set hadoop namenode stop script
+  template: src=templates/hdfs-namenode-stop.run dest=/usr/lib/systemd/system/hdfs-namenode-stop.run owner=hdfs group=hdfs mode=0755
+- name: Set hadoop namenode service
+  template: src=templates/hdfs-namenode.service dest=/lib/systemd/system/hdfs-namenode.service owner=hdfs group=hdfs mode=0755
+
+- name: Set hadoop zkfc start script
+  template: src=templates/hdfs-zkfc-start.run dest=/usr/lib/systemd/system/hdfs-zkfc-start.run owner=hdfs group=hdfs mode=0755
+- name: Set hadoop zkfc stop script
+  template: src=templates/hdfs-zkfc-stop.run dest=/usr/lib/systemd/system/hdfs-zkfc-stop.run owner=hdfs group=hdfs mode=0755
+- name: Set hadoop zkfc service
+  template: src=templates/hdfs-zkfc.service dest=/lib/systemd/system/hdfs-zkfc.service owner=hdfs group=hdfs mode=0755
+
+- name: Set hadoop http-auth-secret
+  template: src=templates/hadoop-http-auth-signature-secret dest=/data/hadoop-3.3.0/share/hadoop-http-auth-signature-secret owner=hdfs group=hdfs mode=0400 unsafe_writes=yes
+
 - name: Set hadoop config core-site.xml
-  template: src=templates/core-site.xml dest=/data/hadoop-3.3.0/etc/hadoop/core-site.xml owner=root group=root mode=0644
+  template: src=templates/core-site.xml dest=/data/hadoop-3.3.0/etc/hadoop/core-site.xml owner=hdfs group=hdfs mode=0644
 - name: Set hadoop config hdfs-site.xml
-  template: src=templates/hdfs-site.xml dest=/data/hadoop-3.3.0/etc/hadoop/hdfs-site.xml owner=root group=root mode=0644
+  template: src=templates/hdfs-site.xml dest=/data/hadoop-3.3.0/etc/hadoop/hdfs-site.xml owner=hdfs group=hdfs mode=0644
+
+- name:  systemd daemon-reload
+  shell: "systemctl daemon-reload"
+
+- name: Start namenode service 
+  shell: "systemctl restart hdfs-namenode; systemctl enable hdfs-namenode"
+
+- name: Start zkfc service 
+  shell: "systemctl restart hdfs-zkfc; systemctl enable hdfs-zkfc"

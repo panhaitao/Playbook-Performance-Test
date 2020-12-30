@@ -9,11 +9,15 @@
         group: HDFS-NN
         datanode_group: HDFS-DN
         hadoop_pkg: 'http://mirrors.ustc.edu.cn/apache/hadoop/core/hadoop-3.3.0/hadoop-3.3.0.tar.gz'
+        http_auth_secret: '/data/hadoop-http-auth-signature-secret'
         core_site:
           fs.defaultFS: hdfs://mycluster
           hadoop.tmp.dir: /data/hadoopData/tmp
           fs.trash.interval: 4320
           ha.zookeeper.quorum: hdfs-zookeeper-1,hdfs-zookeeper-2,hdfs-zookeeper-3
+          hadoop.http.filter.initializers: org.apache.hadoop.security.AuthenticationFilterInitializer
+          hadoop.http.authentication.type: simple
+          hadoop.http.authentication.signature.secret.file: /data/hadoop-3.3.0/share/hadoop-http-auth-signature-secret 
         hdfs_site:
           dfs.nameservices: mycluster
           dfs.ha.namenodes.mycluster: nn1,nn2
@@ -30,4 +34,5 @@
           dfs.namenode.name.dir: /data/hadoopData/dfs/name 
           dfs.replication: 3
           dfs.permissions.superusergroup: staff
-          dfs.permissions.enabled: "false"
+          dfs.permissions.enabled: "true"
+          dfs.permissions.ContentSummary.subAccess: "true"

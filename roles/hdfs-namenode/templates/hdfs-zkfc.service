@@ -1,0 +1,14 @@
+[Unit]
+Description=HDFS zkfc Service
+After=network.target
+
+[Service]
+Type=simple
+User=hdfs
+Group=hdfs
+ExecStart=/usr/lib/systemd/system/hdfs-zkfc-start.run
+ExecStop=/usr/lib/systemd/system/hdfs-zkfc-stop.run
+Restart=no
+
+[Install]
+WantedBy=multi-user.target

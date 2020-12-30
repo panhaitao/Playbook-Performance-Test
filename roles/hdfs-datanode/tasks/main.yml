@@ -4,6 +4,9 @@
   shell: "source /etc/profile"
 - name: Create HDFS Data DIR
   shell: "mkdir -pv  /data/hadoopData/dfs/name && mkdir -pv /data/hadoopData/tmp/ && mkdir -pv /data/hadoop-3.3.0/logs"
+- name: Set hadoop http-auth-secret
+  template: src={{ http-auth-secret }} dest=/data/hadoop-http-auth-signature-secret owner=hdfs group=hdfs mode=0400
+
 - name: Set hadoop config core-site.xml
   template: src=templates/core-site.xml dest=/data/hadoop-3.3.0/etc/hadoop/core-site.xml owner=root group=root mode=0644
 - name: Set hadoop config hdfs-site.xml

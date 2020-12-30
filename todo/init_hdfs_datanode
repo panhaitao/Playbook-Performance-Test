@@ -9,11 +9,15 @@
         group: HDFS-DN
         hadoop_pkg: 'http://mirrors.ustc.edu.cn/apache/hadoop/core/hadoop-3.3.0/hadoop-3.3.0.tar.gz'
         rack_info_list: '/data/Playbook-Performance-Test/rackinfo.list'
+        http-auth-secret: /data/hadoop-http-auth-signature-secret 
         core_site:
           fs.defaultFS: hdfs://mycluster
           hadoop.tmp.dir: /data/hadoopData/tmp
           fs.trash.interval: 4320
           topology.script.file.name: /data/hadoop-3.3.0/share/topology.sh
+          hadoop.http.filter.initializers: org.apache.hadoop.security.AuthenticationFilterInitializer
+          hadoop.http.authentication.type: simple
+          hadoop.http.authentication.signature.secret.file: /data/hadoop-http-auth-signature-secret
         hdfs_site:
           dfs.nameservices: mycluster
           dfs.ha.namenodes.mycluster: nn1,nn2

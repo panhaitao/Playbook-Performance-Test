@@ -6,11 +6,11 @@
     - include_role:
         name: fio
       vars:
-        group: iobench
+        group: all
         task_name: 'iops'
-        filename: '/dev/vdb'
-        filesize: '500g'
-        iodepth: 32
+        filename: '/tmp/test'
+        filesize: '15g'
+        iodepth: 256
         bs: '4k'
-        numjobs: '1'
-        runtime: 300 
+        numjobs: '256'
+        runtime: 300000
