@@ -4,9 +4,11 @@
   shell: "source /etc/profile"
 - name: Create HDFS Data DIR
   shell: "mkdir -pv /data/hadoopData/journal && mkdir -pv /data/hadoop-3.3.0/logs" 
+- name: Set HDFS Data DIR Perm
+  shell: "chown -Rv hdfs:hdfs /data/hadoopData/journal && chown -Rv hdfs:hdfs /data/hadoop-3.3.0/logs" 
 
 - name: Set hadoop config files
-  template: src=templates/{{ item }} dest=/data/hadoop-3.3.0/etc/hadoop/{{ item }} owner=root group=root mode=0644
+  template: src=templates/{{ item }} dest=/data/hadoop-3.3.0/etc/hadoop/{{ item }} owner=hdfs group=hdfs mode=0644
   with_items:
      - core-site.xml
      - hdfs-site.xml

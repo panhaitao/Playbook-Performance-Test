@@ -13,5 +13,7 @@
 - name: create HDFS USER 
   shell: "useradd hdfs"
   ignore_errors: yes
-- name: set hdfs workdir perm
-  shell: "chown -Rv hdfs:hdfs /data/hadoop-3.3.0/ /data/hadoopData/"
+- name: set hdfs program dir perm
+  shell: "chown -Rv hdfs:hdfs /data/hadoop-3.3.0/*"
+- name: set hdfs data dir perm
+  shell: "mkdir -pv /data/hadoopData/; chown -Rv hdfs:hdfs /data/hadoopData/"
