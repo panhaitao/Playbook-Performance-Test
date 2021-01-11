@@ -5,7 +5,7 @@
 - name: Create HDFS Data DIR
   shell: "mkdir -pv /data/hadoopData/journal && mkdir -pv /data/hadoop-3.3.0/logs" 
 - name: Set HDFS Data DIR Perm
-  shell: "chown -Rv hdfs:hdfs /data/hadoopData/journal && chown -Rv hdfs:hdfs /data/hadoop-3.3.0/logs" 
+  shell: "chown -Rv hdfs:hdfs /data/hadoopData/ && chown -Rv hdfs:hdfs /data/hadoop-3.3.0/" 
 
 - name: Set hadoop config files
   template: src=templates/{{ item }} dest=/data/hadoop-3.3.0/etc/hadoop/{{ item }} owner=hdfs group=hdfs mode=0644
