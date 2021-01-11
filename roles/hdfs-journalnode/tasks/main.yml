@@ -4,13 +4,22 @@
   shell: "source /etc/profile"
 - name: Create HDFS Data DIR
   shell: "mkdir -pv /data/hadoopData/journal && mkdir -pv /data/hadoop-3.3.0/logs" 
-- name: Set hadoop config core-site.xml
-  template: src=templates/core-site.xml dest=/data/hadoop-3.3.0/etc/hadoop/core-site.xml owner=root group=root mode=0644
-- name: Set hadoop config hdfs-site.xml
-  template: src=templates/hdfs-site.xml dest=/data/hadoop-3.3.0/etc/hadoop/hdfs-site.xml owner=root group=root mode=0644
 
-  #- name: Kill all java proc
-  #shell: "killall java"
-  #ignore_errors: yes
-  #- name: Run JournalNode
-  #script: files/runserver.sh
+- name: Set hadoop config files
+  template: src=templates/{{ item }} dest=/data/hadoop-3.3.0/etc/hadoop/{{ item }} owner=root group=root mode=0644
+  with_items:
+     - core-site.xml
+     - hdfs-site.xml
+
+- name: Set hadoop journalnode service
+  template: src=templates/{{ item }} dest=/usr/lib/systemd/system/{{ item }} owner=hdfs group=hdfs mode=0755
+  with_items:
+    - hdfs-journalnode-start.run
+    - hdfs-journalnode-stop.run
+    - hdfs-journalnode.service
+
+- name:  systemd daemon-reload
+  shell: "systemctl daemon-reload"
+
+- name: Start namenode service
+  shell: "systemctl restart hdfs-journalnode; systemctl enable hdfs-journalnode"

@@ -1,0 +1,14 @@
+[Unit]
+Description=HDFS Journalnode Service
+After=network.target
+
+[Service]
+Type=simple
+User=hdfs
+Group=hdfs
+ExecStart=/usr/lib/systemd/system/hdfs-journalnode-start.run
+ExecStop=/usr/lib/systemd/system/hdfs-journalnode-stop.run
+Restart=no
+
+[Install]
+WantedBy=multi-user.target
