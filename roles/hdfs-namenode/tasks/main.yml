@@ -21,7 +21,7 @@
   with_items:
     - hdfs-namenode-start.run
     - hdfs-namenode-stop.run
-    - hdfs-datandoe.service
+    - hdfs-namenode.service
     - hdfs-zkfc-start.run
     - hdfs-zkfc-stop.run
     - hdfs-zkfc.service

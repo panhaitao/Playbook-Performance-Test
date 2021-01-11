@@ -10,6 +10,7 @@
         extra_group:
           - HDFS-JN
           - HDFS-ZK
+          - HDFS-NN
         hadoop_pkg: 'http://mirrors.ustc.edu.cn/apache/hadoop/core/hadoop-3.3.0/hadoop-3.3.0.tar.gz'
         rack_info_list: '/root/Playbook-Performance-Test/rackinfo.list'
         http_auth_secret: /data/hadoop-http-auth-signature-secret 

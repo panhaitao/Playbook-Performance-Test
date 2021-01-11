@@ -10,9 +10,11 @@
   shell: "rm -rvf hadoop*.tar.gz && wget {{ hadoop_pkg }}"
 - name: Extra hadoop Packages
   shell: "rm -rvf /data/hadoop-* && tar -xpf hadoop-3.3.0.tar.gz -C /data/"
-- name: create HDFS USER 
+- name: Create HDFS USER 
   shell: "useradd hdfs"
   ignore_errors: yes
+- name: Set HDFS PW 
+  script: files/chpw.sh
 - name: set hdfs program dir perm
   shell: "chown -Rv hdfs:hdfs /data/hadoop-3.3.0/*"
 - name: set hdfs data dir perm

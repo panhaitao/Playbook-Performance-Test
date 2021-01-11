@@ -7,6 +7,10 @@
         name: hdfs-namenode
       vars:
         group: HDFS-NN
+        extra_group:
+          - HDFS-JN
+          - HDFS-ZK
+          - HDFS-DN
         datanode_group: HDFS-DN
         hadoop_pkg: 'http://mirrors.ustc.edu.cn/apache/hadoop/core/hadoop-3.3.0/hadoop-3.3.0.tar.gz'
         http_auth_secret: '/data/hadoop-http-auth-signature-secret'
@@ -34,5 +38,5 @@
           dfs.namenode.name.dir: /data/hadoopData/dfs/name 
           dfs.replication: 3
           dfs.permissions.superusergroup: staff
-          dfs.permissions.enabled: "true"
+          dfs.permissions.enabled: "false"
           dfs.permissions.ContentSummary.subAccess: "true"

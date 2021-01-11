@@ -3,7 +3,7 @@ Description=HDFS zkfc Service
 After=network.target
 
 [Service]
-Type=simple
+Type=forking
 User=hdfs
 Group=hdfs
 ExecStart=/usr/lib/systemd/system/hdfs-zkfc-start.run
