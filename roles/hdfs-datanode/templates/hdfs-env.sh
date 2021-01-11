@@ -1,5 +1,5 @@
-export HDFS_DATANODE_USER=root
-export HDFS_SECONDARYNAMENODE_USER=root
+export HDFS_DATANODE_USER=hdfs
+export HDFS_SECONDARYNAMENODE_USER=hdfs
 
 export JAVA_HOME=/usr/lib/jvm/jre-11-openjdk
 export PATH=$JAVA_HOME/bin:$PATH

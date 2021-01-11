@@ -4,3 +4,11 @@
 {% for item in groups[group] %}
 {{ hostvars[item]['ansible_host'] }} {{ item }}
 {% endfor %}
+
+{% if extra_group is defined %}
+{% for item_group in extra_group %}
+{% for item in groups[item_group] %}
+{{ hostvars[item]['ansible_host'] }} {{ item }}
+{% endfor %}
+{% endfor %}
+{% endif %}
