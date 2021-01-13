@@ -1,0 +1,9 @@
+- name: Restart service
+  shell: "systemctl restart {{ item }}"
+  with_items:
+    - name
+
+- name: Enable service
+  shell: "systemctl enable {{ item }}"
+  with_items:
+    - name

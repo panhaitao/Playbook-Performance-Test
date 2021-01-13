@@ -1,9 +1,9 @@
-- name: Init Mariadb Server 
+- name: Init JDK Env
   hosts: HDFS-Ranger
   user: root
   gather_facts: yes
   tasks:
     - include_role:
-        name: mariadb
+        name: jdk-common
       vars:
         group: HDFS-Ranger

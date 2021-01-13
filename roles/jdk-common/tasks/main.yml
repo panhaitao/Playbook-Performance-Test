@@ -1,0 +1,15 @@
+- name: add maven repo
+  shell: 'wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo'
+- name: update Repo Cache
+  command: "yum makecache"
+- name: Install Packages
+  command: "yum install {{ item }} -y"
+  with_items:
+    - java-1.8.0-openjdk
+    - java-1.8.0-openjdk-devel
+    - psmisc
+    - git
+- name: add env config for RangerAdmin
+  template: src=templates/jdk-8.sh dest=/etc/profile.d/ owner=root group=root mode=0644
+- name: make env config effect
+  shell: "source /etc/profile"
