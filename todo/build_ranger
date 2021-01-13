@@ -1,10 +1,10 @@
-- name: Init KDC Master Server 
-  hosts: HDFS-Ranger
+- name: Build Apache Ranger
+  hosts: all
   user: root
   gather_facts: yes
   tasks:
     - include_role:
         name: ranger
       vars:
-        group: HDFS-Ranger
+        group: all
         ranger_pkg: 'http://mirrors.ustc.edu.cn/apache/ranger/2.0.0/apache-ranger-2.0.0.tar.gz'

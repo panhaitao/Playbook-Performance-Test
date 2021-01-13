@@ -9,6 +9,7 @@
     - java-1.8.0-openjdk-devel
     - psmisc
     - apache-maven-3.3.9-3.el7
+    - git
 - name: add env config for RangerAdmin
   template: src=templates/rangeradmin-env.sh dest=/etc/profile.d/ owner=root group=root mode=0644
 - name: make env config effect
