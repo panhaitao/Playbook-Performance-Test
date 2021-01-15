@@ -1,0 +1,14 @@
+[Unit]
+Description=HDFS DataNode Service
+After=network.target
+
+[Service]
+Type=forking
+User=hdfs
+Group=hdfs
+ExecStart=/usr/lib/systemd/system/hdfs-datanode-start.run
+ExecStop=/usr/lib/systemd/system/hdfs-datanode-stop.run
+Restart=no
+
+[Install]
+WantedBy=multi-user.target

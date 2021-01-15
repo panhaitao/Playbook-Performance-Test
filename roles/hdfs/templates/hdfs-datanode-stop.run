@@ -1,0 +1,3 @@
+#!/bin/bash
+source /etc/profile
+/data/hadoop-3.3.0/bin/hdfs --daemon stop datanode

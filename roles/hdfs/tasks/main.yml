@@ -1,30 +1,21 @@
-- name: update Repo Cache
-  command: "yum makecache"
-- name: Install Packages
-  command: "yum install {{ item }} -y"
-  with_items:
-    - java-11-openjdk
-    - java-11-openjdk-devel
-- name: Get hadoop Packages
-  shell: "rm -rvf hadoop*.tar.gz && wget {{ hadoop_pkg }}"
-- name: Extra hadoop Packages
-  shell: "rm -rvf /data/hadoop-* && tar -xpf hadoop-3.3.0.tar.gz -C /data/"
-  #- name: create HDFS USER 
-  #  shell: "useradd hdfs"
-  #ignore_errors: yes
-  #- name: set hdfs workdir perm
-  #shell: "chown -Rv hdfs:root /data/hadoop-3.3.0/ /data/hadoopData/"
-  #
 - name: add env config for hadoop
   template: src=templates/hdfs-env.sh dest=/etc/profile.d/ owner=root group=root mode=0644
 - name: make env config effect
   shell: "source /etc/profile"
-- name: Create HDFS Data DIR
-  shell: "mkdir -pv  /data/hadoopData/dfs/name && mkdir -pv /data/hadoopData/dfs/data && mkdir -pv /data/hadoopData/tmp/ && mkdir -pv /data/hadoop-3.3.0/logs"
-- name: Set hadoop config core-site.xml
-  template: src=templates/core-site.xml dest=/data/hadoop-3.3.0/etc/hadoop/core-site.xml owner=root group=root mode=0644
-- name: Set hadoop config hdfs-site.xml
-  template: src=templates/hdfs-site.xml dest=/data/hadoop-3.3.0/etc/hadoop/hdfs-site.xml owner=root group=root mode=0644
+
+- name: Create HDFS Data DIR and Set Perm 
+  shell: "mkdir -pv {{ item }} ; chown -Rv hdfs:hdfs {{ item }}" 
+  with_items:
+    - /data/hadoopData/dfs/name
+    - /data/hadoopData/dfs/data
+    - /data/hadoopData/tmp/
+    - /data/hadoop-3.3.0/logs/
+
+- name: Set hadoop config fils
+  template: src=templates/{{ item }} dest=/data/hadoop-3.3.0/etc/hadoop/{{ item }} owner=root group=root mode=0644
+  with_items:
+    - core-site.xml
+    - hdfs-site.xml
 
 - name: Set hadoop topology.sh
   template: src=templates/topology.sh dest=/data/hadoop-3.3.0/share/topology.sh owner=root group=root mode=0755
