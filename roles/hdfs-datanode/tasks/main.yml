@@ -2,12 +2,22 @@
   template: src=templates/hdfs-env.sh dest=/etc/profile.d/ owner=root group=root mode=0644
 - name: make env config effect
   shell: "source /etc/profile"
-- name: Create HDFS Data DIR
-  shell: "mkdir -pv  /data/hadoopData/dfs/name && mkdir -pv /data/hadoopData/tmp/ && mkdir -pv /data/hadoop-3.3.0/logs"
-- name: Set HDFS Data DIR Perm
-  shell: "chown -Rv hdfs:hdfs /data/hadoopData/ && chown -Rv hdfs:hdfs /data/hadoop-3.3.0/"
-- name: Set hadoop http_auth_secret
-  template: src={{ http_auth_secret }} dest=/data/hadoop-http-auth-signature-secret owner=hdfs group=hdfs mode=0400
+
+- name: Create HDFS Data DIR and Set Perm
+  shell: "mkdir -pv {{ item }} ; chown -Rv hdfs:hdfs {{ item }}"
+  with_items:
+    - /data/hadoop-3.3.0/logs/
+    - /data/hadoopData/dfs/data
+    - /data/hadoopData/tmp/
+
+- name: Set hadoop config files
+  template: src=templates/{{ item }} dest=/data/hadoop-3.3.0/etc/hadoop/{{ item }} owner=hdfs group=hdfs mode=0644
+  with_items:
+     - core-site.xml
+     - hdfs-site.xml
+
+- name: Set hadoop workers
+  template: src=templates/workers dest=/data/hadoop-3.3.0/etc/hadoop/workers owner=root group=root mode=0755
 
 - name: Set hadoop topology.sh
   template: src=templates/topology.sh dest=/data/hadoop-3.3.0/share/topology.sh owner=root group=root mode=0755
@@ -25,13 +35,6 @@
 - name: Set hadoop topology.data
   template: src=templates/topology.data dest=/data/hadoop-3.3.0/share/topology.data owner=root group=root mode=0755
 
-
-- name: Set hadoop config files
-  template: src=templates/{{ item }} dest=/data/hadoop-3.3.0/etc/hadoop/{{ item }} owner=hdfs group=hdfs mode=0644
-  with_items:
-     - core-site.xml
-     - hdfs-site.xml
-
 - name: Set hadoop datanode service
   template: src=templates/{{ item }} dest=/usr/lib/systemd/system/{{ item }} owner=hdfs group=hdfs mode=0755
   with_items:
@@ -44,4 +47,3 @@
 
 - name: Start namenode service
   shell: "systemctl restart hdfs-datanode; systemctl enable hdfs-datanode"
-
