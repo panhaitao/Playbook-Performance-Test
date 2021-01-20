@@ -7,8 +7,9 @@
         name: pxc-cluster
       vars:
         group: pxc
+        pxc_cluster_name: pxc-cluster
         bootstrap_node: pxc-node-1
-        db_root_pw: a4h3jlbn 
+        db_root_pw: a4h3ljbn 
         sst_user: xtrabackup
         sst_pw: a4h3ljbn
         

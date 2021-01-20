@@ -1,5 +1,6 @@
 #!/bin/bash
-mysqld --defaults-file=pxc-bootstrap.cnf \
+rm -rvf /var/lib/mysql/*
+mysqld --defaults-file=/etc/pxc-bootstrap.cnf \
 --basedir=/usr/                          \
 --datadir=/var/lib/mysql/                \
 --user=mysql                             \

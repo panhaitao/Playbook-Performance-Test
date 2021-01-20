@@ -1,5 +1,6 @@
 - name: add percona-release repo
   shell: "yum install -y https://repo.percona.com/yum/percona-release-latest.noarch.rpm"
+  ignore_errors: yes
 - name: add epel-release repo
   shell: "yum install -y epel-release"
 - name: update Repo Cache
@@ -10,31 +11,29 @@
     - Percona-XtraDB-Cluster-57
     - pigz
 
+- name: Gen PXC bootstrap.cnf
+  template: src=templates/pxc-bootstrap.cnf   dest=/etc/pxc-bootstrap.cnf owner=root group=root mode=0644
+- name: Gen PXC node.cnf
+  template: src=templates/node.cnf   dest=/etc/node.cnf owner=root group=root mode=0644
+
 - name: Run DB Init Script
   script: files/{{ item }}
   with_items:
     - db_pre_config.sh
     - db_init.sh
 
-- name: Sync PXC Init Script
-  template: src=templates/init_db.sh   dest=/usr/share/init_db.sh owner=root group=root mode=0644
-
-- name: Gen PXC bootstrap.cnf
-  template: src=templates/pxc-bootstrap.cnf   dest=/etc/pxc-bootstrap.cnf owner=root group=root mode=0644
-  when: inventory_hostname in bootstrap_node 
-
 - name: Sync Init User Script
   template: src=templates/bootstrap_db_user.sh   dest=/tmp/bootstrap_db_user.sh owner=mysql group=mysql mode=0755
-  when: inventory_hostname in bootstrap_node 
-
-- name: Run DB Init User Script
-  shell: "bash /tmp/bootstrap_db_user.sh"
   when: inventory_hostname in bootstrap_node 
 
 - name: Init Bootstrap Node 
   script: files/{{ item }}
   with_items:
     - db_bootstrap.sh 
+  when: inventory_hostname in bootstrap_node 
+
+- name: Run DB Init User Script
+  shell: "bash /tmp/bootstrap_db_user.sh"
   when: inventory_hostname in bootstrap_node 
 
 - name: Init Bootstrap Node 

@@ -8,7 +8,7 @@ log-bin=/var/lib/mysql/master-bin
 sync_binlog = 1
 
 log-error=/var/log/mysql/mysqld.log
-pid-file=/var/run/mysqld/mysqld.pid
+pid-file=/var/run/mysql/mysqld.pid
 ignore-db-dir=lost+found
 datadir=/var/lib/mysql/
 socket=/var/lib/mysql/mysql.sock

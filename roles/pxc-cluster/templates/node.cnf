@@ -8,7 +8,7 @@ log-bin=/var/lib/mysql/master-bin
 sync_binlog = 1
 
 log-error=/var/log/mysql/mysqld.log
-pid-file=/var/run/mysqld/mysqld.pid
+pid-file=/var/run/mysql/mysqld.pid
 ignore-db-dir=lost+found
 datadir=/var/lib/mysql/
 socket=/var/lib/mysql/mysql.sock
@@ -23,7 +23,9 @@ innodb_autoinc_lock_mode=2
 bind_address = 0.0.0.0
 
 wsrep_cluster_name={{ pxc_cluster_name }}
-wsrep_cluster_address=gcomm://{%- for item in groups[group] -%} '{{ item }}'{% if not loop.last %},{% endif %} {%- endfor -%}
+wsrep_cluster_address=gcomm://{%- for item in groups[group] -%} {{ item }}{% if not loop.last %},{% endif %} {%- endfor %}
+
+
 
 wsrep_node_address={{ hostvars[inventory_hostname].ansible_default_ipv4.address }}
 wsrep_node_incoming_address={{ inventory_hostname }}:3306
@@ -34,7 +36,7 @@ wsrep_provider=/usr/lib64/libgalera_smm.so
 wsrep_sst_method=xtrabackup-v2
 wsrep_sst_auth='{{ sst_user }}:{{ sst_pw }}'
 
-strict_mode=DISABLED
+pxc_strict_mode=ENFORCING
 
 [sst]
 progress=/var/lib/mysql/sst_in_progress
