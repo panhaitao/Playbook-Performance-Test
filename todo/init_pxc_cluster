@@ -1,0 +1,14 @@
+- name: Init Mariadb Server 
+  hosts: pxc
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: pxc-cluster
+      vars:
+        group: pxc
+        bootstrap_node: pxc-node-1
+        db_root_pw: a4h3jlbn 
+        sst_user: xtrabackup
+        sst_pw: a4h3ljbn
+        

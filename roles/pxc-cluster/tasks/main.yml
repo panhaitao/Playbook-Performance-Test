@@ -1,21 +1,44 @@
+- name: add percona-release repo
+  shell: "yum install -y https://repo.percona.com/yum/percona-release-latest.noarch.rpm"
+- name: add epel-release repo
+  shell: "yum install -y epel-release"
 - name: update Repo Cache
   command: "yum makecache"
-  when: inventory_hostname in groups[group] 
 - name: Install Packages
   command: "yum install {{ item }} -y"
   with_items:
-    - mariadb-server
-    - mariadb
-  when: inventory_hostname in groups[group] 
+    - Percona-XtraDB-Cluster-57
+    - pigz
 
-- name: Update server.cnf
-  template: src=templates/server.cnf   dest=/etc/my.cnf.d/server.cnf owner=root group=root mode=0644
-  when: inventory_hostname in groups[group] 
+- name: Run DB Init Script
+  script: files/{{ item }}
+  with_items:
+    - db_pre_config.sh
+    - db_init.sh
 
-- name: Enable MariaDB Service AutoStart
-  shell: 'systemctl enable mariadb'
-  when: inventory_hostname in groups[group] 
+- name: Sync PXC Init Script
+  template: src=templates/init_db.sh   dest=/usr/share/init_db.sh owner=root group=root mode=0644
 
-- name: Start MariaDB Service
-  shell: 'systemctl start mariadb'
-  when: inventory_hostname in groups[group] 
+- name: Gen PXC bootstrap.cnf
+  template: src=templates/pxc-bootstrap.cnf   dest=/etc/pxc-bootstrap.cnf owner=root group=root mode=0644
+  when: inventory_hostname in bootstrap_node 
+
+- name: Sync Init User Script
+  template: src=templates/bootstrap_db_user.sh   dest=/tmp/bootstrap_db_user.sh owner=mysql group=mysql mode=0755
+  when: inventory_hostname in bootstrap_node 
+
+- name: Run DB Init User Script
+  shell: "bash /tmp/bootstrap_db_user.sh"
+  when: inventory_hostname in bootstrap_node 
+
+- name: Init Bootstrap Node 
+  script: files/{{ item }}
+  with_items:
+    - db_bootstrap.sh 
+  when: inventory_hostname in bootstrap_node 
+
+- name: Init Bootstrap Node 
+  script: files/{{ item }}
+  with_items:
+    - db_run.sh 
+  when: inventory_hostname not in bootstrap_node 
