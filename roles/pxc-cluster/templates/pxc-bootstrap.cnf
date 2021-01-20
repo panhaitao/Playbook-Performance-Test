@@ -1,0 +1,41 @@
+[client]
+socket=/var/lib/mysql/mysql.sock
+
+[mysqld]
+server_id=1
+binlog_format=ROW
+log-bin=/var/lib/mysql/master-bin
+sync_binlog = 1
+
+log-error=/var/log/mysql/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
+ignore-db-dir=lost+found
+datadir=/var/lib/mysql/
+socket=/var/lib/mysql/mysql.sock
+skip-host-cache
+
+default_storage_engine=InnoDB
+innodb_flush_log_at_trx_commit  = 0
+innodb_flush_method             = O_DIRECT
+innodb_file_per_table           = 1
+innodb_autoinc_lock_mode=2
+
+bind_address = 0.0.0.0
+
+wsrep_cluster_name=pxc-cluster
+wsrep_cluster_address=gcomm://
+
+wsrep_node_address=10.23.149.183
+wsrep_node_incoming_address=pxc-sh-1:3306
+
+wsrep_slave_threads=8
+wsrep_provider=/usr/lib64/libgalera_smm.so
+
+wsrep_sst_method=xtrabackup-v2
+wsrep_sst_auth='xtrabackup:abc123456'
+
+strict_mode=DISABLED
+
+[sst]
+progress=/var/lib/mysql/sst_in_progress
+ss

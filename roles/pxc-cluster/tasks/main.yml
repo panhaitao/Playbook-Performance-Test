@@ -1,0 +1,21 @@
+- name: update Repo Cache
+  command: "yum makecache"
+  when: inventory_hostname in groups[group] 
+- name: Install Packages
+  command: "yum install {{ item }} -y"
+  with_items:
+    - mariadb-server
+    - mariadb
+  when: inventory_hostname in groups[group] 
+
+- name: Update server.cnf
+  template: src=templates/server.cnf   dest=/etc/my.cnf.d/server.cnf owner=root group=root mode=0644
+  when: inventory_hostname in groups[group] 
+
+- name: Enable MariaDB Service AutoStart
+  shell: 'systemctl enable mariadb'
+  when: inventory_hostname in groups[group] 
+
+- name: Start MariaDB Service
+  shell: 'systemctl start mariadb'
+  when: inventory_hostname in groups[group] 
