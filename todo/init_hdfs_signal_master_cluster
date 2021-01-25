@@ -1,13 +1,45 @@
-- name: set all hdfs nodes
+- name: Set hdfs Name Nodes
+  hosts: HDFS-NN
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: hdfs-namenode
+      vars:
+        group: HDFS-NN
+        extra_group:
+          - HDFS-DN
+        datanode_group: HDFS-DN
+        rack_info_list: '/root/Playbook-Performance-Test/rackinfo.list'
+        hadoop_pkg: 'http://mirrors.ustc.edu.cn/apache/hadoop/core/hadoop-3.3.0/hadoop-3.3.0.tar.gz'
+        core_site:
+          fs.defaultFS: hdfs://hdfs-namenode-1:9000
+          hadoop.tmp.dir: /data/hadoopData/tmp
+          fs.trash.interval: 4320
+          topology.script.file.name: /data/hadoop-3.3.0/share/topology.sh
+        hdfs_site:
+          dfs.namenode.name.dir: /data/hadoopData/dfs/name
+          dfs.replication: 3
+          dfs.webhdfs.enabled: true
+          dfs.permissions.superusergroup: staff
+          dfs.permissions.enabled: false
+- name: set all hdfs data nodes
   hosts: HDFS-DN
   user: root
   gather_facts: yes
   tasks:
     - include_role:
-        name: hdfs
+        name: hdfs-datanode
       vars:
         group: HDFS-DN
-        hdfs_namenode: hdfs-namenode-1
+        extra_group:
+          - HDFS-NN
         hadoop_pkg: 'http://mirrors.ustc.edu.cn/apache/hadoop/core/hadoop-3.3.0/hadoop-3.3.0.tar.gz'
-        rack_info_list: '/data/Playbook-Performance-Test/rackinfo.list'
-        
+        rack_info_list: '/root/Playbook-Performance-Test/rackinfo.list'
+        core_site:
+          fs.defaultFS: hdfs://hdfs-namenode-1:9000
+          hadoop.tmp.dir: /data/hadoopData/tmp
+          fs.trash.interval: 4320
+          topology.script.file.name: /data/hadoop-3.3.0/share/topology.sh
+        hdfs_site:
+          dfs.datanode.data.dir: /data/hadoopData/dfs/data
