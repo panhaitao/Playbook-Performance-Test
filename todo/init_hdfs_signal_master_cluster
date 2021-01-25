@@ -1,13 +1,92 @@
-- name: set all hdfs nodes
+- name: Set hdfs Name Nodes
+  hosts: HDFS-NN
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: hdfs-namenode
+      vars:
+        group: HDFS-NN
+        extra_group:
+          - HDFS-DN
+        datanode_group: HDFS-DN
+        rack_info_list: '/root/Playbook-Performance-Test/rackinfo.list'
+        hadoop_pkg: 'http://mirrors.ustc.edu.cn/apache/hadoop/core/hadoop-3.3.0/hadoop-3.3.0.tar.gz'
+        core_site:
+          fs.defaultFS: hdfs://hdfs-namenode-1:9000
+          hadoop.tmp.dir: /data/hadoopData/tmp
+          fs.trash.interval: 4320
+          topology.script.file.name: /data/hadoop-3.3.0/share/topology.sh
+          hadoop.security.authorization: true 
+          hadoop.security.authentication: kerberos
+          hadoop.security.auth_to_local: 'RULE:[2:$1/$2@$0]([hdfs]/.*@HADOOP\.COM)s/.*/hdfs/'
+          hadoop.ssl.require.client.cert=false
+          hadoop.ssl.hostname.verifier=DEFAULT
+          hadoop.ssl.keystores.factory.class=org.apache.hadoop.security.ssl.FileBasedKeyStoresFactory
+          hadoop.ssl.server.conf=ssl-server.xml
+          hadoop.ssl.client.conf=ssl-client.xml  
+        ssl_server:
+          ssl.server.truststore.location=/data/key/truststore.jks
+          ssl.server.truststore.password=bigdata_pw
+          ssl.server.truststore.type=jks
+          ssl.server.keystore.location=/data/key/keystore.jks
+          ssl.server.keystore.password=bigdata_pw
+          ssl.server.keystore.type=jks
+        ssl_client:
+          ssl.client.truststore.location=/data/key/truststore.jks
+          ssl.client.truststore.password=bigdata
+          ssl.client.truststore.type=jks
+          ssl.client.keystore.location=/data/key/keystore.jks
+          ssl.client.keystore.password=bigdata
+          ssl.client.keystore.type=jks
+        hdfs_site:
+          dfs.namenode.name.dir: /data/hadoopData/dfs/name
+          dfs.replication: 3
+          dfs.webhdfs.enabled: true
+          dfs.permissions.superusergroup: staff
+          dfs.permissions.enabled: false
+          dfs.namenode.keytab.file: /data/hadoop-3.3/share/hdfs-namenode.keytab  
+          dfs.namenode.kerberos.principal: hdfs/_HOST@HADOOP.COM
+          dfs.block.access.token.enable: true
+- name: set all hdfs data nodes
   hosts: HDFS-DN
   user: root
   gather_facts: yes
   tasks:
     - include_role:
-        name: hdfs
+        name: hdfs-datanode
       vars:
         group: HDFS-DN
-        hdfs_namenode: hdfs-namenode-1
+        extra_group:
+          - HDFS-NN
         hadoop_pkg: 'http://mirrors.ustc.edu.cn/apache/hadoop/core/hadoop-3.3.0/hadoop-3.3.0.tar.gz'
-        rack_info_list: '/data/Playbook-Performance-Test/rackinfo.list'
-        
+        rack_info_list: '/root/Playbook-Performance-Test/rackinfo.list'
+        core_site:
+          fs.defaultFS: hdfs://hdfs-namenode-1:9000
+          hadoop.tmp.dir: /data/hadoopData/tmp
+          fs.trash.interval: 4320
+          topology.script.file.name: /data/hadoop-3.3.0/share/topology.sh
+          hadoop.security.authorization: true 
+          hadoop.security.authentication: kerberos
+          hadoop.security.auth_to_local: 'RULE:[2:$1/$2@$0]([hdfs]/.*@HADOOP\.COM)s/.*/hdfs/'
+          hadoop.ssl.require.client.cert=false
+          hadoop.ssl.hostname.verifier=DEFAULT
+          hadoop.ssl.keystores.factory.class=org.apache.hadoop.security.ssl.FileBasedKeyStoresFactory
+          hadoop.ssl.server.conf=ssl-server.xml
+          hadoop.ssl.client.conf=ssl-client.xml
+        ssl_server:
+          ssl.server.truststore.location=/data/key/truststore.jks
+          ssl.server.truststore.password=bigdata_pw
+          ssl.server.truststore.type=jks
+          ssl.server.keystore.location=/data/key/keystore.jks
+          ssl.server.keystore.password=bigdata_pw
+          ssl.server.keystore.type=jks
+        ssl_client:
+          ssl.client.truststore.location=/data/key/truststore.jks
+          ssl.client.truststore.password=bigdata
+          ssl.client.truststore.type=jks
+          ssl.client.keystore.location=/data/key/keystore.jks
+          ssl.client.keystore.password=bigdata
+          ssl.client.keystore.type=jks
+        hdfs_site:
+          dfs.datanode.data.dir: /data/hadoopData/dfs/data

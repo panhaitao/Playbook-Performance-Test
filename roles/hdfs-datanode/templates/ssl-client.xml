@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
-{%- for key, value in core_site.items() %}
+{%- for key, value in ssl_client.items() %}
   <property>
     <name>{{ key }}</name>
     <value>{{ value }}</value>

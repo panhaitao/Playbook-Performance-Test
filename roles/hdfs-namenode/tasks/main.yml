@@ -9,12 +9,32 @@
     - /data/hadoopData/dfs/name
     - /data/hadoopData/tmp/
     - /data/hadoop-3.3.0/logs/
+    - /data/key/
 
 - name: Set hadoop config files
   template: src=templates/{{ item }} dest=/data/hadoop-3.3.0/etc/hadoop/{{ item }} owner=hdfs group=hdfs mode=0644
   with_items:
+     - ssl-server.xml
+     - ssl-client.xml
      - core-site.xml
      - hdfs-site.xml
+     - workers 
+
+- name: Set hadoop topology.sh
+  template: src=templates/topology.sh dest=/data/hadoop-3.3.0/share/topology.sh owner=root group=root mode=0755
+
+- name: sync rack_info file
+  template: src={{ rack_info_list }} dest=/tmp/rack_info  owner=root group=root mode=0644
+
+- name: get rack_info
+  script: files/get_rack_info.sh /tmp/rack_info {{ inventory_hostname }}
+  register: rack_info_raw
+- name: set rack_info_raw
+  set_fact:
+    rack_info: "{{ rack_info_raw.stdout_lines[0] }}"
+
+- name: Set hadoop topology.data
+  template: src=templates/topology.data dest=/data/hadoop-3.3.0/share/topology.data owner=root group=root mode=0755
 
 - name: Set hadoop namenode Services
   template: src=templates/{{ item }} dest=/usr/lib/systemd/system/{{ item }} owner=hdfs group=hdfs mode=0755
