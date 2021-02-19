@@ -6,10 +6,20 @@
 - name: Create HDFS Data DIR and Set Perm
   shell: "mkdir -pv {{ item }} ; chown -Rv hdfs:hdfs {{ item }}"
   with_items:
-    - /data/hadoopData/dfs/name
-    - /data/hadoopData/tmp/
     - /data/hadoop-3.3.0/logs/
-    - /data/key/
+    - /data/hadoopData/dfs/name
+    - /data/hadoopData/key/
+    - /data/hadoopData/tmp/
+
+- name: Clean Old Keys
+  shell: "rm -rvf /data/hadoopData/key/* "
+- name: Sync Keys
+  copy: src={{ item }} dest=/data/hadoopData/key/{{ item }} owner=hdfs group=hdfs mode=0644
+  with_items:
+    - hdfs-namenode.keytab
+    - http-namenode.keytab
+    - truststore.jks
+    - keystore.jks
 
 - name: Set hadoop config files
   template: src=templates/{{ item }} dest=/data/hadoop-3.3.0/etc/hadoop/{{ item }} owner=hdfs group=hdfs mode=0644

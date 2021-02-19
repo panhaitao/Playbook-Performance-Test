@@ -21,33 +21,37 @@
           hadoop.security.authentication: kerberos
           hadoop.security.auth_to_local: 'RULE:[2:$1/$2@$0]([hdfs]/.*@HADOOP\.COM)s/.*/hdfs/'
           hadoop.ssl.require.client.cert=false
-          hadoop.ssl.hostname.verifier=DEFAULT
+          hadoop.ssl.hostname.verifier=ALLOW_ALL
           hadoop.ssl.keystores.factory.class=org.apache.hadoop.security.ssl.FileBasedKeyStoresFactory
           hadoop.ssl.server.conf=ssl-server.xml
           hadoop.ssl.client.conf=ssl-client.xml  
         ssl_server:
-          ssl.server.truststore.location=/data/key/truststore.jks
+          ssl.server.truststore.location=/data/hadoopData/key/truststore.jks
           ssl.server.truststore.password=bigdata_pw
           ssl.server.truststore.type=jks
-          ssl.server.keystore.location=/data/key/keystore.jks
+          ssl.server.keystore.location=/data/hadoopData/key/keystore.jks
           ssl.server.keystore.password=bigdata_pw
           ssl.server.keystore.type=jks
         ssl_client:
-          ssl.client.truststore.location=/data/key/truststore.jks
+          ssl.client.truststore.location=/data/hadoopData/key/truststore.jks
           ssl.client.truststore.password=bigdata
           ssl.client.truststore.type=jks
-          ssl.client.keystore.location=/data/key/keystore.jks
+          ssl.client.keystore.location=/data/hadoopData/key/keystore.jks
           ssl.client.keystore.password=bigdata
           ssl.client.keystore.type=jks
         hdfs_site:
-          dfs.namenode.name.dir: /data/hadoopData/dfs/name
-          dfs.replication: 3
           dfs.webhdfs.enabled: true
           dfs.permissions.superusergroup: staff
           dfs.permissions.enabled: false
-          dfs.namenode.keytab.file: /data/hadoop-3.3/share/hdfs-namenode.keytab  
-          dfs.namenode.kerberos.principal: hdfs/_HOST@HADOOP.COM
+          dfs.replication: 3
+          dfs.namenode.name.dir: /data/hadoopData/dfs/name
           dfs.block.access.token.enable: true
+          dfs.namenode.kerberos.principal: hdfs/_HOST@HADOOP.COM
+          dfs.namenode.keytab.file: /data/hadoopData/key/hdfs-namenode.keytab
+          dfs.http.policy: HTTPS_ONLY
+          dfs.namenode.https-address: 0.0.0.0:9871
+          dfs.namenode.kerberos.internal.spnego.principal：http/_HOST@HADOOP.COM
+          dfs.web.authentication.kerberos.keytab：/data/hadoopData/key/http-namenode.keytab
 - name: set all hdfs data nodes
   hosts: HDFS-DN
   user: root
@@ -70,23 +74,29 @@
           hadoop.security.authentication: kerberos
           hadoop.security.auth_to_local: 'RULE:[2:$1/$2@$0]([hdfs]/.*@HADOOP\.COM)s/.*/hdfs/'
           hadoop.ssl.require.client.cert=false
-          hadoop.ssl.hostname.verifier=DEFAULT
+          hadoop.ssl.hostname.verifier=ALLOW_ALL
           hadoop.ssl.keystores.factory.class=org.apache.hadoop.security.ssl.FileBasedKeyStoresFactory
           hadoop.ssl.server.conf=ssl-server.xml
           hadoop.ssl.client.conf=ssl-client.xml
         ssl_server:
-          ssl.server.truststore.location=/data/key/truststore.jks
+          ssl.server.truststore.location=/data/hadoopData/key/truststore.jks
           ssl.server.truststore.password=bigdata_pw
           ssl.server.truststore.type=jks
-          ssl.server.keystore.location=/data/key/keystore.jks
+          ssl.server.keystore.location=/data/hadoopData/key/keystore.jks
           ssl.server.keystore.password=bigdata_pw
           ssl.server.keystore.type=jks
         ssl_client:
-          ssl.client.truststore.location=/data/key/truststore.jks
+          ssl.client.truststore.location=/data/hadoopData/key/truststore.jks
           ssl.client.truststore.password=bigdata
           ssl.client.truststore.type=jks
-          ssl.client.keystore.location=/data/key/keystore.jks
+          ssl.client.keystore.location=/data/hadoopData/key/keystore.jks
           ssl.client.keystore.password=bigdata
           ssl.client.keystore.type=jks
         hdfs_site:
           dfs.datanode.data.dir: /data/hadoopData/dfs/data
+          dfs.datanode.data.dir.perm: 700
+          dfs.data.transfer.protection: integrity
+          dfs.datanode.address: 0.0.0.0:9004 
+          dfs.datanode.kerberos.principal: hdfs/_HOST@HADOOP.COM
+          dfs.datanode.keytab.file: /data/hadoopData/share/hdfs-datanode.keytab
+          dfs.datanode.https.address：0.0.0.0:9865

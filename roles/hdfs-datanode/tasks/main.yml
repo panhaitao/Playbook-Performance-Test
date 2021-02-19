@@ -9,7 +9,16 @@
     - /data/hadoop-3.3.0/logs/
     - /data/hadoopData/dfs/data
     - /data/hadoopData/tmp/
-    - /data/key/
+    - /data/hadoopData/key/
+
+- name: Clean Old Keys
+  shell: "rm -rvf /data/hadoopData/key/* "
+- name: Sync Keys
+  copy: src={{ item }} dest=/data/hadoopData/key/{{ item }} owner=hdfs group=hdfs mode=0644
+  with_items:
+    - hdfs-datanode.keytab
+    - truststore.jks
+    - keystore.jks
 
 - name: Set hadoop config files
   template: src=templates/{{ item }} dest=/data/hadoop-3.3.0/etc/hadoop/{{ item }} owner=hdfs group=hdfs mode=0644
