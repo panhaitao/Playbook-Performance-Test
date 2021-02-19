@@ -1,6 +1,6 @@
-hdfs-namenode-1 /switch1/rack1
-hdfs-namenode-2 /switch1/rack1
-hdfs-datanode-1 /switch1/rack2
-hdfs-datanode-2 /switch1/rack2
-hdfs-datanode-3 /switch2/rack3
-hdfs-datanode-4 /switch2/rack3
+hdfs-namenode-1.hadoop.com /switch1/rack1
+hdfs-namenode-2.hadoop.com /switch1/rack1
+hdfs-datanode-1.hadoop.com /switch1/rack2
+hdfs-datanode-2.hadoop.com /switch1/rack2
+hdfs-datanode-3.hadoop.com /switch2/rack3
+hdfs-datanode-4.hadoop.com /switch2/rack3
