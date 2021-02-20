@@ -3,19 +3,17 @@
 - name: Install Packages
   command: "yum install {{ item }} -y"
   with_items:
-    - java-11-openjdk
-    - java-11-openjdk-devel
+    - java-latest-openjdk
+    - java-latest-openjdk-devel
     - psmisc
 - name: Get hadoop Packages
   shell: "rm -rvf hadoop*.tar.gz && wget {{ hadoop_pkg }}"
 - name: Extra hadoop Packages
   shell: "rm -rvf /data/hadoop-* && tar -xpf hadoop-3.3.0.tar.gz -C /data/"
-- name: Create HDFS USER 
-  shell: "useradd hdfs"
+- name: Set HDFS User_Group And PW
+  script: files/set_hdfs_user.sh
   ignore_errors: yes
-- name: Set HDFS PW 
-  script: files/chpw.sh
 - name: set hdfs program dir perm
-  shell: "chown -Rv hdfs:hdfs /data/hadoop-3.3.0/*"
+  shell: "chown -Rv hdfs:hadoop /data/hadoop-3.3.0/*"
 - name: set hdfs data dir perm
-  shell: "mkdir -pv /data/hadoopData/; chown -Rv hdfs:hdfs /data/hadoopData/"
+  shell: "mkdir -pv /data/hadoopData/; chown -Rv hdfs:hadoop /data/hadoopData/"

@@ -4,7 +4,7 @@
   shell: "source /etc/profile"
 
 - name: Create HDFS Data DIR and Set Perm
-  shell: "mkdir -pv {{ item }} ; chown -Rv hdfs:hdfs {{ item }}"
+  shell: "mkdir -pv {{ item }} ; chown -Rv hdfs:hadoop {{ item }}"
   with_items:
     - /data/hadoop-3.3.0/logs/
     - /data/hadoopData/dfs/data
@@ -14,14 +14,14 @@
 - name: Clean Old Keys
   shell: "rm -rvf /data/hadoopData/key/* "
 - name: Sync Keys
-  copy: src={{ item }} dest=/data/hadoopData/key/{{ item }} owner=hdfs group=hdfs mode=0644
+  copy: src={{ item }} dest=/data/hadoopData/key/{{ item }} owner=hdfs group=hadoop mode=0644
   with_items:
     - hdfs-datanode.keytab
     - truststore.jks
     - keystore.jks
 
 - name: Set hadoop config files
-  template: src=templates/{{ item }} dest=/data/hadoop-3.3.0/etc/hadoop/{{ item }} owner=hdfs group=hdfs mode=0644
+  template: src=templates/{{ item }} dest=/data/hadoop-3.3.0/etc/hadoop/{{ item }} owner=hdfs group=hadoop mode=0644
   with_items:
      - ssl-server.xml
      - ssl-client.xml
@@ -29,10 +29,10 @@
      - hdfs-site.xml
 
 - name: Set hadoop topology.sh
-  template: src=templates/topology.sh dest=/data/hadoop-3.3.0/share/topology.sh owner=root group=root mode=0755
+  template: src=templates/topology.sh dest=/data/hadoop-3.3.0/share/topology.sh owner=hdfs group=hadoop mode=0755
 
 - name: sync rack_info file
-  template: src={{ rack_info_list }} dest=/tmp/rack_info  owner=root group=root mode=0644
+  template: src={{ rack_info_list }} dest=/tmp/rack_info  owner=hdfs group=hadoop mode=0644
 
 - name: get rack_info
   script: files/get_rack_info.sh /tmp/rack_info {{ inventory_hostname }}
@@ -42,10 +42,10 @@
     rack_info: "{{ rack_info_raw.stdout_lines[0] }}"
 
 - name: Set hadoop topology.data
-  template: src=templates/topology.data dest=/data/hadoop-3.3.0/share/topology.data owner=root group=root mode=0755
+  template: src=templates/topology.data dest=/data/hadoop-3.3.0/share/topology.data owner=hdfs group=hadoop mode=0755
 
 - name: Set hadoop datanode service
-  template: src=templates/{{ item }} dest=/usr/lib/systemd/system/{{ item }} owner=hdfs group=hdfs mode=0755
+  template: src=templates/{{ item }} dest=/usr/lib/systemd/system/{{ item }} owner=hdfs group=hadoop mode=0755
   with_items:
     - hdfs-datanode-start.run
     - hdfs-datanode-stop.run
