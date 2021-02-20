@@ -5,6 +5,9 @@
   <property>
     <name>{{ key }}</name>
     <value>{{ value }}</value>
+    {%- if key.startswith('hadoop.ssl') %}
+    <final>true</final>
+    {% endif -%}
   </property>
 {% endfor -%}
 </configuration>

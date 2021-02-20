@@ -9,6 +9,7 @@
         group: HDFS-NN
         extra_group:
           - HDFS-DN
+          - HDFS-KDC
         datanode_group: HDFS-DN
         rack_info_list: '/root/Playbook-Performance-Test/rackinfo.list'
         hadoop_pkg: 'http://mirrors.ustc.edu.cn/apache/hadoop/core/hadoop-3.3.0/hadoop-3.3.0.tar.gz'
@@ -63,6 +64,7 @@
         group: HDFS-DN
         extra_group:
           - HDFS-NN
+          - HDFS-KDC
         hadoop_pkg: 'http://mirrors.ustc.edu.cn/apache/hadoop/core/hadoop-3.3.0/hadoop-3.3.0.tar.gz'
         rack_info_list: '/root/Playbook-Performance-Test/rackinfo.list'
         core_site:
