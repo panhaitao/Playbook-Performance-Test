@@ -28,17 +28,17 @@
           hadoop.ssl.client.conf: ssl-client.xml  
         ssl_server:
           ssl.server.truststore.location: /data/hadoopData/key/truststore.jks
-          ssl.server.truststore.password: bigdata_pw
+          ssl.server.truststore.password: a4h3ljbn
           ssl.server.truststore.type: jks
           ssl.server.keystore.location: /data/hadoopData/key/keystore.jks
-          ssl.server.keystore.password: bigdata_pw
+          ssl.server.keystore.password: a4h3ljbn
           ssl.server.keystore.type: jks
         ssl_client:
           ssl.client.truststore.location: /data/hadoopData/key/truststore.jks
-          ssl.client.truststore.password: bigdata
+          ssl.client.truststore.password: a4h3ljbn
           ssl.client.truststore.type: jks
           ssl.client.keystore.location: /data/hadoopData/key/keystore.jks
-          ssl.client.keystore.password: bigdata
+          ssl.client.keystore.password: a4h3ljbn
           ssl.client.keystore.type: jks
         hdfs_site:
           dfs.webhdfs.enabled: true
@@ -82,17 +82,17 @@
           hadoop.ssl.client.conf: ssl-client.xml
         ssl_server:
           ssl.server.truststore.location: /data/hadoopData/key/truststore.jks
-          ssl.server.truststore.password: bigdata_pw
+          ssl.server.truststore.password: a4h3ljbn
           ssl.server.truststore.type: jks
           ssl.server.keystore.location: /data/hadoopData/key/keystore.jks
-          ssl.server.keystore.password: bigdata_pw
+          ssl.server.keystore.password: a4h3ljbn
           ssl.server.keystore.type: jks
         ssl_client:
           ssl.client.truststore.location: /data/hadoopData/key/truststore.jks
-          ssl.client.truststore.password: bigdata
+          ssl.client.truststore.password: a4h3ljbn
           ssl.client.truststore.type: jks
           ssl.client.keystore.location: /data/hadoopData/key/keystore.jks
-          ssl.client.keystore.password: bigdata
+          ssl.client.keystore.password: a4h3ljbn
           ssl.client.keystore.type: jks
         hdfs_site:
           dfs.datanode.data.dir: /data/hadoopData/dfs/data
