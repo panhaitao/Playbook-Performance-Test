@@ -10,6 +10,7 @@ export HADOOP_HOME=/data/hadoop-3.3.0/
 export HADOOP_OPTS="-Djava.net.preferIPv4Stack=true           \
                     -Dsun.security.krb5.debug=true            \
                     -Dsun.security.spnego.debug               \
+                    -Dsun.security.krb5.disableReferrals=true \
                     -Djava.security.krb5.conf=/etc/krb5.conf  \
                     -Djava.security.krb5.kdc=kdc-master-1.hadoop.com:88  \
                     -Djava.security.krb5.realm=hadoop.com
