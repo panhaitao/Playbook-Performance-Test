@@ -1,7 +1,7 @@
 export HDFS_NAMENODE_USER=hdfs
 export HDFS_SECONDARYNAMENODE_USER=hdfs
 
-export JAVA_HOME=/usr/lib/jvm/jre-15
+export JAVA_HOME=/usr/lib/jvm/jre-1.8.0
 export PATH=$JAVA_HOME/bin:$PATH
 export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 export PATH=$PATH:/data/hadoop-3.3.0/bin/:/data/hadoop-3.3.0/sbin/

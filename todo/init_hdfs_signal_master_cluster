@@ -98,6 +98,9 @@
           dfs.datanode.data.dir: /data/hadoopData/dfs/data
           dfs.datanode.data.dir.perm: 700
           dfs.data.transfer.protection: integrity
+          dfs.encrypt.data.transfer: true
+          dfs.encrypt.data.transfer.cipher.suites: AES
+          dfs.encrypt.data.transfer.cipher.key.bitlength: 128
           dfs.datanode.address: 0.0.0.0:9004 
           dfs.datanode.kerberos.principal: hdfs/_HOST@HADOOP.COM
           dfs.datanode.keytab.file: /data/hadoopData/key/hdfs-datanode.keytab
