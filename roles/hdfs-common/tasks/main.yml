@@ -3,9 +3,10 @@
 - name: Install Packages
   command: "yum install {{ item }} -y"
   with_items:
+    - psmisc
     - java-1.8.0-openjdk
     - java-1.8.0-openjdk-devel
-    - psmisc
+    - krb5-workstation
 - name: Get hadoop Packages
   shell: "rm -rvf hadoop*.tar.gz && wget {{ hadoop_pkg }}"
 - name: Extra hadoop Packages
@@ -17,3 +18,5 @@
   shell: "chown -Rv hdfs:hadoop /data/hadoop-3.3.0/*"
 - name: set hdfs data dir perm
   shell: "mkdir -pv /data/hadoopData/; chown -Rv hdfs:hadoop /data/hadoopData/"
+- name: Update krb5.conf
+  template: src=templates/krb5.conf   dest=/etc/krb5.conf owner=root group=root mode=0644
