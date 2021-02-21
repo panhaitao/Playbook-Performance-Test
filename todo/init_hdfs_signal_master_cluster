@@ -20,7 +20,7 @@
           topology.script.file.name: /data/hadoop-3.3.0/share/topology.sh
           hadoop.security.authorization: true 
           hadoop.security.authentication: kerberos
-          hadoop.security.auth_to_local: 'RULE:[2:$1/$2@$0]([hdfs]/.*@HADOOP\.COM)s/.*/hdfs/'
+          hadoop.security.auth_to_local: 'RULE:[2:$1/$2@$0](hdfs/.*@HADOOP.COM)s/.*/hdfs/'
           hadoop.ssl.require.client.cert: false
           hadoop.ssl.hostname.verifier: ALLOW_ALL
           hadoop.ssl.keystores.factory.class: org.apache.hadoop.security.ssl.FileBasedKeyStoresFactory
@@ -74,7 +74,7 @@
           topology.script.file.name: /data/hadoop-3.3.0/share/topology.sh
           hadoop.security.authorization: true 
           hadoop.security.authentication: kerberos
-          hadoop.security.auth_to_local: 'RULE:[2:$1/$2@$0]([hdfs]/.*@HADOOP\.COM)s/.*/hdfs/'
+          hadoop.security.auth_to_local: 'RULE:[2:$1/$2@$0](hdfs/.*@HADOOP.COM)s/.*/hdfs/'
           hadoop.ssl.require.client.cert: false
           hadoop.ssl.hostname.verifier: ALLOW_ALL
           hadoop.ssl.keystores.factory.class: org.apache.hadoop.security.ssl.FileBasedKeyStoresFactory
