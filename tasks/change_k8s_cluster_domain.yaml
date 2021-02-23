@@ -1,0 +1,9 @@
+- name: Reset k8s cluster Domain
+  hosts: all
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: Update kubelet.conf
+    shell: 'sed -i s/cluster.local/custom.net/g /etc/kubernetes/kubelet.conf' 
+  - name: Restart kubelet service
+    shell: "systemctl restart kubelet"
