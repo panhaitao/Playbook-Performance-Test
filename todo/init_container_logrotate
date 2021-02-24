@@ -1,0 +1,9 @@
+- name: Set Container Logrotate
+  hosts: all
+  user: root
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: logrotate
+      vars:
+        group: all

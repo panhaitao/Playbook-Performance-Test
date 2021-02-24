@@ -1,0 +1,6 @@
+- name: sync logrotate.d container-log config
+  template: src=templates/container-log   dest=/etc/logrotate.d/container-log owner=root group=root mode=0644
+- name: Create Dir /var/log/spooler
+  shell: "mkdir -pv /var/log/spooler" 
+- name: Restart Crond Service
+  shell: "systemctl restart crond.service" 
