@@ -9,6 +9,6 @@
         group: all
         enable_metrics: true
         repo: 'http://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/docker-ce.repo' 
-        version: '19.03.9'
+        docker_version: '19.03.9'
         registry:
           - myhub.com
